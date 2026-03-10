@@ -32,7 +32,7 @@ A pretty, human-friendly replacement for `ls` — with icons, colors, human-read
 ## Installation
 
 #
-# AT THE MOMENT THIS (Github) IS THE ONLY PLACE YOU CAN INSTALL THIS! I HAVE NOT UPLOADED IT ANYWHERE ELSE YET!
+# AT THE MOMENT THIS (Github) IS THE ONLY PLACE YOU CAN INSTALL THIS! I HAVE NOT UPLOADED IT ANYWHERE ELSE YET! THE FOLLOWING IS PLACEHOLDER TEXT:
 #
 ### AUR (Arch Linux)
 
