@@ -1,6 +1,8 @@
 # prettyls
 
 A pretty, human-friendly replacement for `ls` — with icons, colors, human-readable sizes, and a clean tabular layout.
+I built this in Arch, though I do believe it will work on other distros.
+This is one of my first projects.
 
 ```
  ~/projects/prettyls
