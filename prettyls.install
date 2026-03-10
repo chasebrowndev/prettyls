@@ -1,0 +1,103 @@
+MARKER="# prettyls alias -- added by prettyls"
+ALIAS="alias ls='prettyls'"
+
+_get_home() {
+    eval echo "~${SUDO_USER:-$USER}"
+}
+
+_get_user() {
+    echo "${SUDO_USER:-$USER}"
+}
+
+_install_nerd_font() {
+    local home
+    home=$(_get_home)
+    local user
+    user=$(_get_user)
+    local font_dir="$home/.local/share/fonts/NerdFonts"
+    local font_name="JetBrainsMono"
+    local font_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/${font_name}.zip"
+    local tmp_dir
+    tmp_dir=$(mktemp -d)
+
+    # Skip if font already present
+    if fc-list 2>/dev/null | grep -qi "JetBrainsMono Nerd Font"; then
+        echo "  prettyls: JetBrainsMono Nerd Font already installed, skipping."
+        return 0
+    fi
+
+    echo "  prettyls: Installing JetBrainsMono Nerd Font to $font_dir ..."
+
+    if ! command -v curl &>/dev/null && ! command -v wget &>/dev/null; then
+        echo "  prettyls: WARNING: neither curl nor wget found. Skipping font install."
+        echo "  prettyls: Install a Nerd Font manually from https://www.nerdfonts.com/font-downloads"
+        return 1
+    fi
+
+    # Download
+    if command -v curl &>/dev/null; then
+        curl -fsSL "$font_url" -o "$tmp_dir/${font_name}.zip"
+    else
+        wget -q "$font_url" -O "$tmp_dir/${font_name}.zip"
+    fi
+
+    if [ ! -f "$tmp_dir/${font_name}.zip" ]; then
+        echo "  prettyls: WARNING: Font download failed. Install manually from https://www.nerdfonts.com/font-downloads"
+        rm -rf "$tmp_dir"
+        return 1
+    fi
+
+    # Extract and install as the real user (not root)
+    su - "$user" -s /bin/bash -c "
+        mkdir -p '$font_dir'
+        unzip -o '$tmp_dir/${font_name}.zip' '*.ttf' -d '$font_dir' >/dev/null 2>&1
+        fc-cache -f '$font_dir'
+    "
+
+    rm -rf "$tmp_dir"
+    echo "  prettyls: Nerd Font installed. You may need to restart your terminal and set it as your font."
+}
+
+_add_alias() {
+    local home
+    home=$(_get_home)
+
+    for rc in "$home/.bashrc" "$home/.zshrc"; do
+        if [ -f "$rc" ] && ! grep -qF "$MARKER" "$rc"; then
+            printf '\n%s\n%s\n' "$MARKER" "$ALIAS" >> "$rc"
+            echo "  prettyls: added alias to $rc"
+        fi
+    done
+}
+
+post_install() {
+    _install_nerd_font
+    _add_alias
+
+    echo ""
+    echo "  prettyls installed!"
+    echo "  1. Restart your terminal and set your font to 'JetBrainsMono Nerd Font'"
+    echo "  2. Run: source ~/.bashrc  (or ~/.zshrc)"
+    echo "  Then 'ls' will use prettyls with full icons."
+    echo ""
+}
+
+post_upgrade() {
+    _add_alias
+    echo "  prettyls upgraded. Run: source ~/.bashrc"
+}
+
+post_remove() {
+    local home
+    home=$(_get_home)
+
+    for rc in "$home/.bashrc" "$home/.zshrc"; do
+        if [ -f "$rc" ]; then
+            sed -i "/$MARKER/{N;d}" "$rc"
+            echo "  prettyls: removed alias from $rc"
+        fi
+    done
+
+    echo "  prettyls: uninstalled. The Nerd Font remains in ~/.local/share/fonts/NerdFonts if you want to remove it."
+    echo "  prettyls: Reload your shell to apply."
+}
