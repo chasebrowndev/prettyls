@@ -55,7 +55,7 @@ After installing, restart your terminal and set your terminal font to **JetBrain
 ### Manual
 
 ```bash
-git clone https://github.com/chasebrown/prettyls.git
+git clone https://github.com/chasebrowndev/prettyls.git
 cd prettyls
 chmod +x prettyls.sh
 sudo cp prettyls.sh /usr/local/bin/prettyls
