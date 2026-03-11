@@ -1,5 +1,5 @@
 #!/bin/bash
-# prettyls 1.0.0 - a pretty replacement for ls
+# prettyls 1.0.0 - a pretty alternative for ls
 
 RECURSIVE=0
 SHOW_DOTFILES=0
@@ -13,7 +13,7 @@ while [[ $# -gt 0 ]]; do
             cat <<EOF
 Usage: prettyls [OPTIONS] [FILE/DIR...]
 
-A pretty, human-friendly replacement for ls.
+A pretty, human-friendly alternative for ls.
 
 Options:
   -a, --all          Show hidden files (dotfiles)
