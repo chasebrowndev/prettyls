@@ -1,6 +1,6 @@
 # prettyls
 
-A pretty replacement for `ls`. With icons, colors, human-readable sizes, and a clean tabular layout.
+A pretty alternative for `ls`. With icons, colors, human-readable sizes, and a clean tabular layout.
 I built this in Arch, though I do believe it will work on other distros.
 This is one of my first projects.
 
@@ -48,7 +48,7 @@ paru -S prettyls
 
 The installer will automatically:
 - Install the JetBrainsMono Nerd Font to `~/.local/share/fonts/NerdFonts/`
-- Add `alias ls='prettyls'` to your `~/.bashrc` and/or `~/.zshrc`
+- Add `alias pls='prettyls'` to your `~/.bashrc` and/or `~/.zshrc`
 
 After installing, restart your terminal and set your terminal font to **JetBrainsMono Nerd Font**.
 
@@ -64,7 +64,7 @@ sudo cp prettyls.sh /usr/local/bin/prettyls
 Then optionally add to your shell config:
 
 ```bash
-alias ls='prettyls'
+alias pls='prettyls'
 ```
 
 ---
