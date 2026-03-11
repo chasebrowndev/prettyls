@@ -1,5 +1,5 @@
 MARKER="# prettyls alias -- added by prettyls"
-ALIAS="alias ls='prettyls'"
+ALIAS="alias pls='prettyls'"
 
 _get_home() {
     eval echo "~${SUDO_USER:-$USER}"
@@ -78,7 +78,7 @@ post_install() {
     echo "  prettyls installed!"
     echo "  1. Restart your terminal and set your font to 'JetBrainsMono Nerd Font'"
     echo "  2. Run: source ~/.bashrc  (or ~/.zshrc)"
-    echo "  Then 'ls' will use prettyls with full icons."
+    echo "  Then 'pls' will use prettyls with full icons."
     echo ""
 }
 
